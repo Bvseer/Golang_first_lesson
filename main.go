@@ -1,48 +1,42 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"github.com/Shemistan/Lesson_2/auth"
+	"github.com/Shemistan/Lesson_2/models"
+)
 
 const (
-	exit = "exit"
-	auth = "auth"
-	reg  = "reg"
+	EXIT         = "exit"
+	AUTH         = "auth"
+	REGISTRATION = "registration"
+	ADD_PRODUCT  = "add_product"
+	ORDERS_LIST  = "orders_list"
 )
 
 func main() {
-	var command string
-	userList := []string{"user1_password1", "user1_password1"}
-	productList := make([]string, 0, 10)
 
-	_ = productList
-	for command != exit {
+	var command string
+
+	var usersList []models.User
+	d
+	productsList := make([]string, 0, 10)
+
+	_ = productsList
+
+	for command != EXIT {
 		fmt.Println("Введите команду") // Сделать красивый вывод, вывести список команд на этом шаге
+		fmt.Printf("1. %s \n2. %s \n3. %s \n", EXIT, AUTH, REGISTRATION)
+
 		fmt.Scan(&command)
 
 		switch command {
-		case exit:
+		case EXIT:
 			break
-		case reg:
-			fmt.Println("Введите логин и пароль в таком виде login_passwor")
-			fmt.Scan(&command) // Сделать так, что бы выводил сообщение, если пользователь уже существует
-			userList = append(userList, command)
-
-			message := fmt.Sprintf("Пользователь %s успешно добавлен", command)
-			fmt.Println(message)
-
-			fmt.Println(userList)
-		case auth:
-			fmt.Println("Введите логин и пароль в таком виде login_passwor")
-			fmt.Scan(&command)
-
-			for _, v := range userList {
-				if v == command {
-					fmt.Println("Добро пожаловать в магази")
-
-				} else {
-					fmt.Println("Вы не зарегистрированны")
-				}
-
-			}
+		case REGISTRATION:
+			auth.Registrate(usersList)
+		case AUTH:
+			auth.Authenticate()
 		}
 	}
 }
